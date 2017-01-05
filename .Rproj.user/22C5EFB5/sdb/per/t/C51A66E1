@@ -1,0 +1,18 @@
+{
+    "contents" : "library(fpp)\ndata <- read.table(\"C:\\\\Users\\\\PRATIK GAUTAM\\\\Desktop\\\\Sales.txt\",header\n                   = T,sep = \"\\t\")\nrow <- dim(data)[1]\n\nperiod=5\n\n# Y = bX+a\n\ny_sum <- 0  # sales is y-axis\nx_sum <- 0   # time is x-axis\ncounter<-1\nwhile(counter<=row) {\n  y_sum <- y_sum+data$Sales[counter];\n  x_sum <- x_sum+counter;\n  counter<-counter+1; \n}\ny_mean <- y_sum/row\nx_mean <- x_sum/row\n\n# finding 'b'\nnum<-0\ndenom<-0\ncounter<-1\nwhile(counter<=row) {\n  num<-num+(counter-x_mean)*(data$Sales[counter]-y_mean)\n  denom<-denom+(counter-x_mean)*(counter-x_mean)\n  counter<-counter+1; \n}\nb<-num/denom\na<-y_mean-b*x_mean\ncat(a,b);\n\n\nFORECAST <- NULL\ncounter<-1\nerror_curr <- 0\nerror <- 0\nerror_sq <- 0\nerror_abs <- 0\nerror_perc <- 0\n\nwhile(counter<=row) {\n  ANS <- b*counter+a;\n  FORECAST <- c(FORECAST,ANS);\n  \n  cat(\"For time:\",counter,\"actual:\",data$Sales[counter],\"predicated:\",ANS,\"\\n\");\n  error_curr <- data$Sales[counter] - ANS;\n  error <- error + error_curr;\n  error_sq <- error_sq + error_curr*error_curr;\n  error_abs <- error_abs + abs(error_curr); \n  error_perc <- error_perc + (error_curr/data$Sales[counter])*100;\n  \n  counter<-counter+1; \n}\nindex<- 1\nwhile(index<=period) {\n  ANS <- b*counter+a;\n  FORECAST <- c(FORECAST,ANS);\n  cat(\"For time:\",counter,\"predication:\",ANS,\"\\n\");\n  counter<-counter+1\n  index<-index+1\n}\n  \n\nplot.ts(data$Sales)\nlines(FORECAST,col=\"blue\")\n\ncat(\"Predicated value for t=\",row+1,\":\",FORECAST[row+1],\"\\n\");\ncat(\"Mean Error :\",error/row,\"\\n\");\ncat(\"Mean Absolute Error :\",error_abs/row,\"\\n\");\ncat(\"Mean Square Error :\",error_sq/row,\"\\n\");\ncat(\"Mean % Error :\",error_perc/row,\"%\\n\");\n\n# calculate Theil's U-statistic\ncounter <- 1;\nnum <- 0;\ndenom <- 0;\n\nwhile(counter<row) {\n  num <- num + ((FORECAST[counter+1]-data$Sales[counter+1])/data$Sales[counter])**2;\n  denom <- denom + ((data$Sales[counter+1]-data$Sales[counter])/data$Sales[counter])**2;\n  counter <- counter +1\n}\n\ncat(\"Theil's U-statistic : \", sqrt(num/denom),\"\\n\");",
+    "created" : 1457630231832.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1754533198",
+    "id" : "C51A66E1",
+    "lastKnownWriteTime" : 1457631611,
+    "path" : "~/R/codes/simple_regression.R",
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

@@ -1,0 +1,17 @@
+{
+    "contents" : "# ui.R\n\nshinyUI(fluidPage(\n  tags$head(tags$style(\n    \"body { word-wrap: break-word; }\"\n  )),\n  titlePanel(\"Welcome to Forecasting Project \"),\n  helpText(\"This project forecasts data, using different Forecasting Techniques.\"),\n  \n  sidebarLayout(\n    sidebarPanel(\n      fluidRow(\n        \n        column(5, wellPanel(\n          selectInput(\"input_type\", \"Select Technique\",\n                      c(\"Mean\", \"Moving Average\", \"Exponential Smoothing\", \"Halt's Method\",\n                        \"Halt Winter's Method\",\"Simple Regression\"\n                      )\n          )),\n          fileInput('file1', 'Choose File',\n                    accept=c('text/csv', \n                             'text/comma-separated-values,text/plain', \n                             '.csv')),\n          #tags$hr(),\n          checkboxInput('header', 'Header', TRUE),\n          radioButtons('sep', 'Separator',\n                       c(Comma=',',\n                         Semicolon=';',\n                         Tab='\\t'),\n                       '\\t')\n        ),\n        column(5, wellPanel(\n          # This outputs the dynamic UI component\n          uiOutput(\"ui_1\"),\n          uiOutput(\"ui_2\"),\n          uiOutput(\"ui_3\"),\n          uiOutput(\"ui_4\"),\n          uiOutput(\"ui_5\")\n        ))\n      ),\n      fluidRow(\n        column(4\n        ),\n        column(6,\n               submitButton(\"Submit\")\n        )\n        \n      )\n    ),\n    \n    mainPanel(\n      fluidRow(\n        column(5, \n               tableOutput('contents')\n        ),\n        column(5,\n               lapply(1:50, function(i) {\n                 uiOutput(paste(i))\n               }),\n               br(),\n               htmlOutput(\"text1\"),\n               tags$style(type='text/css', '#text1 {background-color: rgb(130,222,253); padding:20px 20px 20px 20px;}')\n        )\n        \n      ),\n      fluidRow(plotOutput('dynamicPlot'))\n    )\n  )\n))",
+    "created" : 1457465426398.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "958934080",
+    "id" : "2B54FA88",
+    "lastKnownWriteTime" : 1457631705,
+    "path" : "~/R/mini-project_testing/ui.R",
+    "project_path" : "ui.R",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

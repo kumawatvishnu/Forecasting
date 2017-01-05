@@ -1,0 +1,17 @@
+{
+    "contents" : "library(fpp)\ndata <- read.table(\"C:\\\\Users\\\\PRATIK GAUTAM\\\\Desktop\\\\Sales.txt\",header\n                   = T,sep = \"\\t\")\nrow <- dim(data)[1]\n\nalpha <- .822\nbeta <- 0.0\nNO_PRED <- 6\n\nFORECAST<-0  # first observation is NULL\n\nLEVEL<-data$Sales[1] #L1 = Y1\n\nif(beta==0) {\n  TREND <- 0\n} else {\n  TREND <-data$Sales[2]-data$Sales[1] #b1 = Y2-Y1\n}\n\n\ncounter<-2\n\nerror_curr <- 0\nerror <- 0\nerror_sq <- 0\nerror_abs <- 0\nerror_perc <- 0\n\nwhile(counter<=row) {\n  \n  FORECAST_NEXT<-LEVEL[counter-1]+TREND[counter-1]*1;\n  FORECAST <- c(FORECAST,FORECAST_NEXT);\n  \n  cat(\"For time:\",counter,\"actual:\",data$Sales[counter],\"predicated:\",FORECAST[counter],\"\\n\");\n  error_curr <- data$Sales[counter] - FORECAST[counter];\n  error <- error + error_curr;\n  error_sq <- error_sq + error_curr*error_curr;\n  error_abs <- error_abs + abs(error_curr); \n  error_perc <- error_perc + (error_curr/data$Sales[counter])*100;\n  \n  LEVEL_NEW <- alpha*data$Sales[counter]+(1-alpha)*(LEVEL[counter-1]+TREND[counter-1]);\n  LEVEL<-c(LEVEL, LEVEL_NEW)\n  \n  TREND_NEW <- beta*(LEVEL[counter]-LEVEL[counter-1])+(1-beta)*TREND[counter-1]\n  TREND<-c(TREND,TREND_NEW)\n  \n  counter<-counter+1; \n}\n\n# Now predicting \nindex <- 1\nwhile(index<=NO_PRED){\n  FORECAST_NEXT<-LEVEL[counter-1]+TREND[counter-1]*index;\n  FORECAST <- c(FORECAST,FORECAST_NEXT);\n  cat(\"Predicated value for t=\",row+index,\":\",FORECAST[row+index],\"\\n\");\n  index <- index+1\n}\n\nplot.ts(data$Sales, xlim=c(1,30))\nlines(FORECAST,col=\"blue\")\n\ncat(\"Mean Error :\",error/row,\"\\n\");\ncat(\"Mean Absolute Error :\",error_abs/row,\"\\n\");\ncat(\"Mean Square Error :\",error_sq/row,\"\\n\");\ncat(\"Mean % Error :\",error_perc/row,\"%\\n\");\n\n# calculate Theil's U-statistic\n\ncounter <- interval+1;\nnum <- 0;\ndenom <- 0;\n\nwhile(counter<row) {\n  num <- num + ((FORECAST[counter+1]-data$Sales[counter+1])/data$Sales[counter])**2;\n  denom <- denom + ((data$Sales[counter+1]-data$Sales[counter])/data$Sales[counter])**2;\n  counter <- counter +1\n}\n\ncat(\"Theil's U-statistic : \", sqrt(num/denom),\"\\n\")",
+    "created" : 1457695230352.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3127057698",
+    "id" : "43F7A953",
+    "lastKnownWriteTime" : 1457695335,
+    "path" : "~/R/codes/HOLTS.R",
+    "project_path" : null,
+    "properties" : {
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
