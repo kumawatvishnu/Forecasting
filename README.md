@@ -17,8 +17,11 @@ libraries required are :
 
 Platform used is **Rstudio**.
 
-![screenshot 69](https://cloud.githubusercontent.com/assets/20659938/21708290/0383f600-d3fd-11e6-8eeb-b5f2450443c7.png)
-
-
+#Screenshots
 
 ![screenshot 68](https://cloud.githubusercontent.com/assets/20659938/21708291/038641b2-d3fd-11e6-9d95-b5f68f126426.png)
+
+
+
+![screenshot 69](https://cloud.githubusercontent.com/assets/20659938/21708290/0383f600-d3fd-11e6-8eeb-b5f2450443c7.png)
+
