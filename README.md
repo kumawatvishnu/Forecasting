@@ -10,8 +10,10 @@ Shows the forecasted values along with the **Graph between original data and for
 Presently Works on file **Sales.txt** provided in the project structure only.
 
 libraries required are : 
-fpp for forecasting 
-shiny for UI
+
+**fpp** for forecasting 
+
+**shiny** for UI
 
 Platform used is **Rstudio**.
 
